@@ -11,22 +11,80 @@
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
         }
-        body {
+        html, body {
             background-color: #0f0f0f;
             color: #e0e0e0;
             line-height: 1.6;
+            margin: 0; /* Fjerner standard margin */
+            min-height: 100vh; /* Sikrer, at body fylder mindst hele skærmhøjden */
+            scrollbar-width: none; /* For Firefox */
+            -ms-overflow-style: none; /* For Internet Explorer og Edge */
+        }
+        body::-webkit-scrollbar {
+            display: none; /* Skjuler scrollbar i Webkit-browsere (Chrome, Safari) */
+        }
+        /* Navigation */
+        nav {
+            background: transparent; /* Fjerner baggrundsbar */
+            padding: 10px 0; /* Plads til tekst */
+            position: absolute; /* Placerer navigationen absolut over hero-sektionen */
+            top: 0; /* Placerer i toppen */
+            left: 0;
+            z-index: 100; /* Sørger for, at den ligger oven på andet indhold */
+            width: 100%; /* Fuld bredde */
+            display: flex; /* Bruger flexbox til at placere elementer */
+            justify-content: center; /* Centrerer ul horisontalt */
+            align-items: center; /* Centrerer vertikalt */
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center; /* Centrerer navigationsteksten horisontalt */
+            position: relative;
+            z-index: 2;
+            margin: 0; /* Fjerner standardmargin */
+        }
+        nav ul li {
+            margin: 0 20px; /* Afstand mellem links */
+        }
+        nav ul li a {
+            color: #e0e0e0; /* Lys tekst for læselighed */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Skygge for kontrast */
+        }
+        nav ul li a:hover {
+            color: #00b4d8; /* Hover-effekt */
+            text-shadow: 0 0 5px rgba(0, 180, 216, 0.7); /* Justeret skygge ved hover */
+        }
+        /* Logo i højre side */
+        .nav-logo {
+            max-width: 50px; /* Lille logo-størrelse */
+            position: absolute; /* Placerer logoet separat */
+            top: 10px; /* Lige under toppen */
+            right: 20px; /* Afstand fra højre kant */
+            z-index: 2; /* Sørger for, at logoet ligger over overlayet */
         }
         /* Header / Hero Section */
         .hero {
-            height: 100vh;
-            background: url('new-background.jpg') no-repeat center center; /* Kun én gang, centreret */
-            background-size: cover; /* Skalerer billedet til at fylde sektionen */
+            height: 100vh; /* Fuld skærmhøjde */
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative;
             overflow: hidden;
+        }
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Sikrer, at billedet dækker hele sektionen */
+            filter: blur(5px); /* Tilføjer 20% blur (fortolket som 5px) */
+            z-index: 0; /* Placerer baggrundsbilledet bag indholdet */
         }
         .hero::before {
             content: '';
@@ -70,31 +128,6 @@
         .cta-button:hover {
             transform: scale(1.05);
             background-color: #00a1c8;
-        }
-        /* Navigation */
-        nav {
-            background-color: #1a1a1a;
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-        }
-        nav ul li {
-            margin: 0 20px;
-        }
-        nav ul li a {
-            color: #e0e0e0;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-        nav ul li a:hover {
-            color: #00b4d8;
         }
         /* Content Sections */
         .section {
@@ -149,6 +182,14 @@
         .connect-section .ip-address:hover {
             background-color: #3a3a3a;
         }
+        /* Discord Section Styling */
+        #discord {
+            text-align: center; /* Centrerer alt indhold i Discord-sektionen */
+        }
+        #discord .cta-button {
+            display: block; /* Gør knappen til en blok for at centrere den */
+            margin: 20px auto; /* Automatisk margin til venstre og højre for at centrere */
+        }
         /* Logo Styling efter tekst */
         .section-logo {
             max-width: 100px; /* Lille logo-størrelse */
@@ -178,11 +219,40 @@
             .hero img { max-width: 200px; }
             .hero h1 { font-size: 2rem; }
             .hero p { font-size: 1rem; }
-            nav ul { flex-direction: column; text-align: center; }
-            nav ul li { margin: 10px 0; }
-            .section { margin: 20px; padding: 20px; }
-            .section-logo { max-width: 80px; } /* Justér logo-størrelse på mobil */
-            .connect-section .ip-address { font-size: 1rem; padding: 8px 15px; }
+            nav {
+                flex-direction: column; /* Stable elementer lodret på mobil */
+                align-items: center;
+                padding: 5px 0; /* Reduceret padding på mobil */
+            }
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav ul li {
+                margin: 10px 0;
+            }
+            .nav-logo {
+                position: static; /* Fjerner absolut positionering på mobil */
+                margin-top: 10px; /* Plads over logoet */
+                margin-right: 0; /* Fjerner højre margin */
+            }
+            .section {
+                margin: 20px;
+                padding: 20px;
+            }
+            .section-logo {
+                max-width: 80px; /* Justér logo-størrelse på mobil */
+            }
+            .connect-section .ip-address {
+                font-size: 1rem;
+                padding: 8px 15px;
+            }
+            #discord .cta-button {
+                margin: 15px auto; /* Justér margin på mobil */
+            }
+            .hero {
+                height: 100vh; /* Fuld højde på mobil */
+            }
         }
     </style>
     <script>
@@ -224,17 +294,7 @@
     </script>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div>
-            <img src="newgate-logo.png" alt="Newgate Logo">
-            <h1>Newgate</h1>
-            <p>Danmarks mest episke FiveM RP-oplevelse venter på dig!</p>
-            <a href="https://discord.gg/4MaZTvKK4A" class="cta-button">Join Nu</a>
-        </div>
-    </section>
-
-    <!-- Navigation -->
+    <!-- Navigation (centreret i toppen) -->
     <nav>
         <ul>
             <li><a href="#om">Start</a></li>
@@ -243,6 +303,19 @@
             <li><a href="#connect">Connect til Newgate</a></li>
         </ul>
     </nav>
+    <!-- Logo i højre side -->
+    <img src="newgate-logo.png" alt="Newgate Logo" class="nav-logo">
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="new-background.jpg" alt="Background Image" class="hero-background">
+        <div>
+            <img src="newgate-logo.png" alt="Newgate Logo">
+            <h1>Newgate</h1>
+            <p>Danmarks mest episke FiveM RP-oplevelse venter på dig!</p>
+            <a href="https://discord.gg/4MaZTvKK4A" class="cta-button">Join Nu</a>
+        </div>
+    </section>
 
     <!-- Content Sections -->
     <div class="section" id="om">
