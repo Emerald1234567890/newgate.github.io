@@ -3,92 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Min Danske FiveM RP Server</title>
+    <title>Newgate - Dansk FiveM RP</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
-            color: #ffffff;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
-        header {
-            background-color: #2b2b2b;
-            padding: 20px;
+        body {
+            background-color: #0f0f0f;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        /* Header / Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a, #00b4d8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
+        .hero img {
+            max-width: 300px;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-in-out;
         }
+        .hero h1 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #00b4d8;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+            background-color: #00a1c8;
+        }
+        /* Navigation */
         nav {
-            background-color: #333;
-            padding: 10px;
-            text-align: center;
+            background-color: #1a1a1a;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        nav a {
-            color: #ffffff;
-            margin: 0 15px;
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 20px;
+        }
+        nav ul li a {
+            color: #e0e0e0;
             text-decoration: none;
             font-weight: bold;
+            transition: color 0.3s;
         }
-        nav a:hover {
-            color: #ff4500;
+        nav ul li a:hover {
+            color: #00b4d8;
         }
-        .content {
-            max-width: 800px;
-            margin: 20px auto;
+        /* Top Rules Section */
+        .top-rules {
+            max-width: 1000px;
+            margin: 30px auto;
             padding: 20px;
-            background-color: #2b2b2b;
-            border-radius: 5px;
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #ff4500;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 10px;
+        .top-rules h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #00b4d8;
         }
-        .button:hover {
-            background-color: #ff6347;
+        .top-rules ul {
+            list-style: none;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
         }
+        .top-rules ul li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .top-rules ul li:before {
+            content: "•";
+            color: #00b4d8;
+            position: absolute;
+            left: 0;
+        }
+        /* Content Sections */
+        .section {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #1f1f1f;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #00b4d8;
+        }
+        /* Footer */
         footer {
             text-align: center;
-            padding: 10px;
-            background-color: #333;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+            padding: 20px;
+            background-color: #1a1a1a;
+            font-size: 0.9rem;
+        }
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero img { max-width: 200px; }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            nav ul { flex-direction: column; text-align: center; }
+            nav ul li { margin: 10px 0; }
+            .top-rules, .section { margin: 20px; padding: 20px; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Velkommen til [Servernavn]</h1>
-    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <img src="newgate-logo.png" alt="Newgate Logo">
+            <h1>Newgate</h1>
+            <p>Danmarks mest episke FiveM RP-oplevelse venter på dig!</p>
+            <a href="https://discord.gg/DIN-DISCORD-LINK" class="cta-button">Join Nu</a>
+        </div>
+    </section>
+
+    <!-- Navigation -->
     <nav>
-        <a href="#hjem">Hjem</a>
-        <a href="#om">Om os</a>
-        <a href="#regler">Regler</a>
-        <a href="#discord">Discord</a>
+        <ul>
+            <li><a href="#hjem">Hjem</a></li>
+            <li><a href="#om">Om os</a></li>
+            <li><a href="#regler">Regler</a></li>
+            <li><a href="#discord">Discord</a></li>
+        </ul>
     </nav>
-    <div class="content" id="hjem">
-        <h2>Danmarks fedeste FiveM RP-oplevelse</h2>
-        <p>Velkommen til [Servernavn]! Vi er et dansk FiveM-community, der fokuserer på seriøst rollespil med custom scripts, fede biler og en realistisk oplevelse. Join os i dag!</p>
-        <a href="https://discord.gg/DIN-DISCORD-LINK" class="button">Join vores Discord</a>
+
+    <!-- Top Rules Section -->
+    <div class="top-rules" id="regler">
+        <h2>Vores Regler</h2>
+        <ul>
+            <li>Ingen FailRP - forbliv i karakter.</li>
+            <li>Respektér dine medspillere.</li>
+            <li>Ingen combat-logging eller exploit af bugs.</li>
+            <li>Følg staff-instruktioner til enhver tid.</li>
+        </ul>
     </div>
-    <div class="content" id="om">
+
+    <!-- Content Sections -->
+    <div class="section" id="om">
         <h2>Om os</h2>
-        <p>Vi er et dedikeret team, der har skabt denne server for at give danske spillere en unik RP-oplevelse. Vores server kører på ESX og har masser af custom-indhold.</p>
+        <p>Velkommen til Newgate! Vi er et dansk FiveM-community dedikeret til seriøst rollespil. Med custom scripts, fede køretøjer og et stærkt fællesskab skaber vi en unik oplevelse for alle spillere.</p>
     </div>
-    <div class="content" id="regler">
-        <h2>Regler</h2>
-        <p>1. Ingen FailRP - vær i karakter hele tiden.<br>2. Respektér andre spillere.<br>3. Ingen combat-logging.</p>
+
+    <div class="section" id="discord">
+        <h2>Join vores Discord</h2>
+        <p>Bliv en del af fællesskabet, få whitelist og hold dig opdateret!</p>
+        <a href="https://discord.gg/DIN-DISCORD-LINK" class="cta-button">Gå til Discord</a>
     </div>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 [Servernavn]. Alle rettigheder forbeholdes.</p>
+        <p>© 2025 Newgate. Alle rettigheder forbeholdes.</p>
     </footer>
 </body>
 </html>
