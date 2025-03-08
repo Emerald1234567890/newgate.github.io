@@ -69,6 +69,7 @@
         /* Header / Hero Section */
         .hero {
             height: 100vh; /* Fuld skærmhøjde */
+            width: 100%; /* Fuld skærmbredde */
             position: relative;
             display: flex;
             justify-content: center;
@@ -80,10 +81,10 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Sikrer, at billedet dækker hele sektionen */
-            filter: blur(5px); /* Tilføjer 20% blur (fortolket som 5px) */
+            width: 100%; /* Sikrer fuld bredde */
+            height: 100%; /* Sikrer fuld højde */
+            object-fit: cover; /* Skalerer billedet til at fylde hele området uden forvrængning */
+            filter: blur(5px); /* Bevarer 20% blur (fortolket som 5px) */
             z-index: 0; /* Placerer baggrundsbilledet bag indholdet */
         }
         .hero::before {
