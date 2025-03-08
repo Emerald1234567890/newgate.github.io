@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Newgate - Danmarks Bedst Optimeret Server</title>
+    <title>Newgate - Danmarks Bedst Optimeret FiveM Server</title>
     <style>
         * {
             margin: 0;
@@ -19,13 +19,28 @@
         /* Header / Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(135deg, #1a1a1a, #00b4d8);
+            background: url('new-background.jpg') no-repeat center center; /* Kun én gang, centreret */
+            background-size: cover; /* Skalerer billedet til at fylde sektionen */
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             position: relative;
             overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Gennemsigtig overlay for læselighed */
+            z-index: 1;
+        }
+        .hero > div {
+            position: relative;
+            z-index: 2; /* Sørger for, at indholdet ligger oven på overlayet */
         }
         .hero img {
             max-width: 300px;
@@ -81,38 +96,6 @@
         nav ul li a:hover {
             color: #00b4d8;
         }
-        /* Top Rules Section */
-        .top-rules {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-        .top-rules h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #00b4d8;
-        }
-        .top-rules ul {
-            list-style: none;
-            text-align: left;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .top-rules ul li {
-            margin: 10px 0;
-            padding-left: 20px;
-            position: relative;
-        }
-        .top-rules ul li:before {
-            content: "•";
-            color: #00b4d8;
-            position: absolute;
-            left: 0;
-        }
         /* Content Sections */
         .section {
             max-width: 1000px;
@@ -121,11 +104,62 @@
             background-color: #1f1f1f;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: none; /* Skjuler sektioner som standard */
         }
         .section h2 {
             font-size: 2rem;
             margin-bottom: 20px;
             color: #00b4d8;
+            text-align: center;
+        }
+        /* Rules Section Styling */
+        .rules-section ul {
+            list-style: none;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .rules-section ul li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .rules-section ul li:before {
+            content: "•";
+            color: #00b4d8;
+            position: absolute;
+            left: 0;
+        }
+        /* Connect Section Styling */
+        .connect-section p {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .connect-section .ip-address {
+            display: inline-block;
+            background-color: #2a2a2a;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .connect-section .ip-address:hover {
+            background-color: #3a3a3a;
+        }
+        /* Logo Styling efter tekst */
+        .section-logo {
+            max-width: 100px; /* Lille logo-størrelse */
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* Active Section */
+        .section.active {
+            display: block; /* Viser sektionen, når den er aktiv */
         }
         /* Footer */
         footer {
@@ -146,9 +180,48 @@
             .hero p { font-size: 1rem; }
             nav ul { flex-direction: column; text-align: center; }
             nav ul li { margin: 10px 0; }
-            .top-rules, .section { margin: 20px; padding: 20px; }
+            .section { margin: 20px; padding: 20px; }
+            .section-logo { max-width: 80px; } /* Justér logo-størrelse på mobil */
+            .connect-section .ip-address { font-size: 1rem; padding: 8px 15px; }
         }
     </style>
+    <script>
+        // JavaScript til at styre sektioner
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('nav ul li a');
+            const sections = document.querySelectorAll('.section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); // Forhindrer standard scroll
+                    const targetId = link.getAttribute('href').substring(1); // Fjerner '#'
+                    
+                    // Skjul alle sektioner
+                    sections.forEach(section => section.classList.remove('active'));
+                    
+                    // Vis kun den målte sektion
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                });
+            });
+
+            // Vis "Start" (Om os) som standard ved indlæsning
+            document.getElementById('om').classList.add('active');
+
+            // Kopier IP-adresse ved klik
+            const ipAddress = document.querySelector('.ip-address');
+            if (ipAddress) {
+                ipAddress.addEventListener('click', () => {
+                    const ipText = ipAddress.textContent;
+                    navigator.clipboard.writeText(ipText).then(() => {
+                        alert('IP-adressen er kopieret til udklipsholderen: ' + ipText);
+                    });
+                });
+            }
+        });
+    </script>
 </head>
 <body>
     <!-- Hero Section -->
@@ -157,23 +230,30 @@
             <img src="newgate-logo.png" alt="Newgate Logo">
             <h1>Newgate</h1>
             <p>Danmarks mest episke FiveM RP-oplevelse venter på dig!</p>
-            <a href="https://discord.gg/DIN-DISCORD-LINK" class="cta-button">Join Nu</a>
+            <a href="https://discord.gg/4MaZTvKK4A" class="cta-button">Join Nu</a>
         </div>
     </section>
 
     <!-- Navigation -->
     <nav>
         <ul>
-            <li><a href="#hjem">Hjem</a></li>
-            <li><a href="#om">Om os</a></li>
+            <li><a href="#om">Start</a></li>
             <li><a href="#regler">Regler</a></li>
             <li><a href="#discord">Discord</a></li>
+            <li><a href="#connect">Connect til Newgate</a></li>
         </ul>
     </nav>
 
-    <!-- Top Rules Section -->
-    <div class="top-rules" id="regler">
-        <h2>Vores Regler</h2>
+    <!-- Content Sections -->
+    <div class="section" id="om">
+        <h2>Om os</h2>
+        <p>Velkommen til Newgate – Danmarks førende FiveM-community for seriøst rollespil! Vi er en dedikeret gruppe af spillere, der brænder for at skabe en dyb og realistisk spiloplevelse. Med vores skræddersyede scripts, et imponerende udvalg af unikke køretøjer og et engageret fællesskab arbejder vi sammen om at levere en helt særlig verden, hvor dine historier kan udfolde sig. Uanset om du er nybegynder eller erfaren rollespiller, er Newgate stedet, hvor du kan leve dig ind i spændende roller, møde ligesindede og blive en del af noget større. Kom og oplev et community, der sætter kvalitet og fællesskab i højsædet!</p>
+        <img src="newgate-logo.png" alt="Newgate Logo" class="section-logo">
+    </div>
+
+    <!-- Rules Section -->
+    <div class="section rules-section" id="regler">
+        <h2>Regler</h2>
         <ul>
             <li>Ingen FailRP - forbliv i karakter.</li>
             <li>Respektér dine medspillere.</li>
@@ -182,16 +262,17 @@
         </ul>
     </div>
 
-    <!-- Content Sections -->
-    <div class="section" id="om">
-        <h2>Om os</h2>
-        <p>Velkommen til Newgate! Vi er et dansk FiveM-community dedikeret til seriøst rollespil. Med custom scripts, fede køretøjer og et stærkt fællesskab skaber vi en unik oplevelse for alle spillere.</p>
+    <!-- Connect Section -->
+    <div class="section connect-section" id="connect">
+        <h2>Connect til Newgate</h2>
+        <p>Kopier IP-adressen nedenfor for at tilslutte dig serveren!</p>
+        <p><span class="ip-address">123.456.789.10:30120</span></p>
     </div>
 
     <div class="section" id="discord">
         <h2>Join vores Discord</h2>
         <p>Bliv en del af fællesskabet, få whitelist og hold dig opdateret!</p>
-        <a href="https://discord.gg/4MaZTvKK4A" class="cta-button">Gå til Discord</a>
+        <a href="https://discord.gg/4MaZTvKK4A" class="cta-button">Join Discord</a>
     </div>
 
     <!-- Footer -->
