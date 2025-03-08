@@ -12,157 +12,225 @@
             font-family: 'Arial', sans-serif;
         }
         html, body {
-            color: #e0e0e0; /* Beholder lys grå for almindelig tekst for læselighed */
+            color: #e0e0e0;
             line-height: 1.6;
-            margin: 0; /* Fjerner standard margin */
-            min-height: 100vh; /* Sikrer, at body fylder mindst hele skærmhøjden */
-            scrollbar-width: none; /* For Firefox */
-            -ms-overflow-style: none; /* For Internet Explorer og Edge */
-            position: relative; /* Gør det muligt at bruge absolut positionerede pseudo-elementer */
+            margin: 0;
+            min-height: 100vh;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            position: relative;
+            overflow-x: hidden;
         }
         body::-webkit-scrollbar {
-            display: none; /* Skjuler scrollbar i Webkit-browsere (Chrome, Safari) */
+            display: none;
         }
-        /* Baggrundsbillede på hele siden med blur */
+        /* Parallax baggrund */
         body::before {
             content: '';
-            position: fixed; /* Fast positionering for at dække hele siden */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: url('new-background.jpg') no-repeat center center;
-            background-size: cover; /* Skalerer billedet til at fylde hele siden */
-            filter: blur(5px); /* Bevarer 20% blur (fortolket som 5px) */
-            z-index: -1; /* Placerer baggrunden bag alt indhold */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center 0;
+            filter: blur(5px);
+            z-index: -2;
+            transform: scale(1.1);
         }
-        /* Overlay for læselighed på hele siden */
         body::after {
             content: '';
-            position: fixed; /* Fast positionering for at dække hele siden */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Gennemsigtig overlay for læselighed */
-            z-index: -1; /* Placerer overlayet oven på baggrunden, men bag indholdet */
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
         }
-        /* Navigation */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: transparent;
+        }
+        /* Sticky Navigation */
         nav {
-            background: transparent; /* Fjerner baggrundsbar */
-            padding: 10px 0; /* Plads til tekst */
-            position: absolute; /* Placerer navigationen absolut over indholdet */
-            top: 0; /* Placerer i toppen */
+            background: rgba(31, 31, 31, 0.9);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
             left: 0;
-            z-index: 100; /* Sørger for, at den ligger oven på andet indhold */
-            width: 100%; /* Fuld bredde */
-            display: flex; /* Bruger flexbox til at placere elementer */
-            justify-content: center; /* Centrerer ul horisontalt */
-            align-items: center; /* Centrerer vertikalt */
+            z-index: 1000;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s ease;
         }
         nav ul {
             list-style: none;
             display: flex;
-            justify-content: center; /* Centrerer navigationsteksten horisontalt */
+            justify-content: center;
             position: relative;
             z-index: 2;
-            margin: 0; /* Fjerner standardmargin */
+            margin: 0;
         }
         nav ul li {
-            margin: 0 20px; /* Afstand mellem links */
+            margin: 0 25px;
         }
         nav ul li a {
-            color: #ffffff; /* Hvid tekst */
+            color: #ffffff;
             text-decoration: none;
             font-weight: bold;
+            font-size: 1.1rem;
             transition: color 0.3s;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Skygge for kontrast */
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
         }
         nav ul li a:hover {
-            color: #d3d3d3; /* Lys grå nuance for hover-effekt */
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Beholder skygge ved hover */
+            color: #00b4d8;
+            text-shadow: 0 0 10px rgba(0, 180, 216, 0.7);
         }
         /* Logo i højre side */
         .nav-logo {
-            max-width: 50px; /* Lille logo-størrelse */
-            position: absolute; /* Placerer logoet separat */
-            top: 10px; /* Lige under toppen */
-            right: 20px; /* Afstand fra højre kant */
-            z-index: 2; /* Sørger for, at logoet ligger over baggrunden */
+            max-width: 50px;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            z-index: 2;
+            transition: transform 0.5s ease;
+        }
+        .nav-logo:hover {
+            transform: rotate(360deg);
         }
         /* Header / Hero Section */
         .hero {
-            height: 100vh; /* Fuld skærmhøjde */
-            width: 100%; /* Fuld skærmbredde */
+            height: 100vh;
+            width: 100%;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             overflow: hidden;
+            z-index: 1;
+            padding-top: 70px;
         }
         .hero > div {
             position: relative;
-            z-index: 2; /* Sørger for, at indholdet ligger oven på baggrunden */
+            z-index: 2;
         }
         .hero img {
             max-width: 300px;
             margin-bottom: 20px;
-            animation: fadeIn 1.5s ease-in-out;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         .hero h1 {
             font-size: 3.5rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: #00b4d8; /* Beholder farve, der matcher logoet */
+            color: #00b4d8;
             animation: fadeIn 1.5s ease-in-out;
         }
         .hero p {
             font-size: 1.2rem;
             margin: 20px 0;
-            color: #e0e0e0; /* Beholder lys grå for læselighed */
+            color: #e0e0e0;
         }
         .cta-button {
             display: inline-block;
             padding: 15px 30px;
-            background-color: #00b4d8; /* Matcher logoets antagne farve */
+            background: linear-gradient(45deg, #00b4d8, #00d4ff);
             color: #fff;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            transition: transform 0.3s, background-color 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
         }
         .cta-button:hover {
             transform: scale(1.05);
-            background-color: #00a1c8; /* Lidt mørkere nuance for hover */
+            box-shadow: 0 0 20px rgba(0, 180, 216, 0.8);
         }
         /* Content Sections */
         .section {
             max-width: 1000px;
             margin: 50px auto;
             padding: 30px;
-            background-color: #1f1f1f;
+            background: linear-gradient(145deg, #1f1f1f, #2a2a2a);
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            display: none; /* Skjuler sektioner som standard */
-            position: relative; /* Sørger for, at sektionen ligger oven på baggrunden */
-            z-index: 1; /* Placerer sektionen over baggrunden */
-            opacity: 0; /* Start med usynlig */
-            transition: opacity 0.5s ease; /* Fade-transition */
+            display: none;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
         .section.active {
-            display: block; /* Viser sektionen */
-            opacity: 1; /* Gør sektionen synlig */
+            display: block;
+            opacity: 1;
+        }
+        .section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
         }
         .section h2 {
             font-size: 2rem;
             margin-bottom: 20px;
-            color: #00b4d8; /* Beholder farve, der matcher logoet */
+            color: #00b4d8;
             text-align: center;
+            overflow: hidden;
+            border-right: 0.15em solid #00b4d8;
+            white-space: nowrap;
+            letter-spacing: 0.15em;
+            animation: typing 2s steps(20, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #00b4d8; }
+        }
+        /* Serverstatus panel */
+        .server-status {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(31, 31, 31, 0.9);
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 10;
+            color: #e0e0e0;
+            transition: transform 0.3s ease;
+        }
+        .server-status:hover {
+            transform: scale(1.1);
+        }
+        .server-status .status {
+            font-weight: bold;
+            color: #00b4d8;
+        }
+        .server-status .players {
+            cursor: pointer;
+            color: #00b4d8;
+        }
+        .server-status .players:hover {
+            text-decoration: underline;
         }
         /* Rules Section Styling */
         .rules-section ul {
-            list-style-type: decimal; /* Nummereret liste */
+            list-style-type: decimal;
             text-align: left;
             max-width: 600px;
             margin: 0 auto;
@@ -193,31 +261,124 @@
         }
         /* Discord Section Styling */
         #discord {
-            text-align: center; /* Centrerer alt indhold i Discord-sektionen */
+            text-align: center;
         }
         #discord .cta-button {
-            display: block; /* Gør knappen til en blok for at centrere den */
-            margin: 20px auto; /* Automatisk margin til venstre og højre for at centrere */
+            display: block;
+            margin: 20px auto;
         }
         /* Logo Styling efter tekst */
         .section-logo {
-            max-width: 100px; /* Lille logo-størrelse */
+            max-width: 100px;
             margin-top: 20px;
             display: block;
             margin-left: auto;
             margin-right: auto;
         }
-        /* Active Section */
-        /* Footer */
+        /* News Popup */
+        .news-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #1f1f1f;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            color: #e0e0e0;
+            text-align: center;
+            max-width: 400px;
+        }
+        .news-popup.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        .news-popup .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+        /* Rules Popup */
+        .rules-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #1f1f1f;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+            z-index: 1001; /* Højere end news-popup */
+            color: #e0e0e0;
+            max-width: 700px;
+            width: 90%;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        .rules-popup.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        .rules-popup .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #fff;
+            transition: color 0.3s;
+        }
+        .rules-popup .close-btn:hover {
+            color: #00b4d8;
+        }
+        .rules-popup h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #00b4d8;
+            text-align: center;
+            animation: none; /* Ingen typewriter her for enkelhed */
+        }
+        .rules-popup ul {
+            list-style-type: decimal;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .rules-popup ul li {
+            margin: 15px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        /* Footer med sociale medier */
         footer {
             text-align: center;
             padding: 20px;
             background-color: #1a1a1a;
             font-size: 0.9rem;
-            position: relative; /* Sørger for, at footer ligger oven på baggrunden */
-            z-index: 1; /* Placerer footer over baggrunden */
+            position: relative;
+            z-index: 1;
         }
-        /* Animation */
+        .social-links {
+            margin-top: 10px;
+        }
+        .social-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: #e0e0e0;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .social-links a:hover {
+            color: #00b4d8;
+            transform: scale(1.2);
+        }
+        /* Animationer */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -228,9 +389,9 @@
             .hero h1 { font-size: 2rem; }
             .hero p { font-size: 1rem; }
             nav {
-                flex-direction: column; /* Stable elementer lodret på mobil */
+                flex-direction: column;
                 align-items: center;
-                padding: 5px 0; /* Reduceret padding på mobil */
+                padding: 5px 0;
             }
             nav ul {
                 flex-direction: column;
@@ -240,77 +401,49 @@
                 margin: 10px 0;
             }
             .nav-logo {
-                position: static; /* Fjerner absolut positionering på mobil */
-                margin-top: 10px; /* Plads over logoet */
-                margin-right: 0; /* Fjerner højre margin */
+                position: static;
+                margin-top: 10px;
+                margin-right: 0;
             }
             .section {
                 margin: 20px;
                 padding: 20px;
             }
             .section-logo {
-                max-width: 80px; /* Justér logo-størrelse på mobil */
+                max-width: 80px;
             }
             .connect-section .ip-address {
                 font-size: 1rem;
                 padding: 8px 15px;
             }
             #discord .cta-button {
-                margin: 15px auto; /* Justér margin på mobil */
+                margin: 15px auto;
             }
             .hero {
-                height: 100vh; /* Fuld højde på mobil */
+                height: 100vh;
+                padding-top: 60px;
+            }
+            .server-status {
+                top: 60px;
+                right: 10px;
+                padding: 5px 10px;
+                font-size: 0.9rem;
+            }
+            .news-popup, .rules-popup {
+                max-width: 90%;
+                padding: 15px;
+            }
+            .rules-popup {
+                max-height: 70vh;
+            }
+            .social-links a {
+                font-size: 1.2rem;
+                margin: 0 8px;
             }
         }
     </style>
-    <script>
-        // JavaScript til at styre sektioner
-        document.addEventListener('DOMContentLoaded', () => {
-            const navLinks = document.querySelectorAll('nav ul li a');
-            const sections = document.querySelectorAll('.section');
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault(); // Forhindrer standard scroll
-                    const targetId = link.getAttribute('href').substring(1); // Fjerner '#'
-                    
-                    // Skjul alle sektioner
-                    sections.forEach(section => {
-                        section.classList.remove('active');
-                        // Tilføj en lille forsinkelse for at sikre glidende overgang
-                        setTimeout(() => {
-                            if (!section.classList.contains('active')) {
-                                section.style.display = 'none';
-                            }
-                        }, 500); // Matcher transition-tiden på 0.5s
-                    });
-                    
-                    // Vis kun den målte sektion
-                    const targetSection = document.getElementById(targetId);
-                    if (targetSection) {
-                        targetSection.style.display = 'block'; // Viser sektionen først
-                        setTimeout(() => {
-                            targetSection.classList.add('active'); // Tilføj active efter visning
-                        }, 0); // Uden forsinkelse for at starte transition
-                    }
-                });
-            });
-
-            // Vis "Start" (Om os) som standard ved indlæsning
-            document.getElementById('om').classList.add('active');
-
-            // Kopier IP-adresse ved klik
-            const ipAddress = document.querySelector('.ip-address');
-            if (ipAddress) {
-                ipAddress.addEventListener('click', () => {
-                    const ipText = ipAddress.textContent;
-                    navigator.clipboard.writeText(ipText).then(() => {
-                        alert('IP-adressen er kopieret til udklipsholderen: ' + ipText);
-                    });
-                });
-            }
-        });
-    </script>
+    <!-- Inkluder particles.js bibliotek -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.js"></script>
 </head>
 <body>
     <!-- Navigation (centreret i toppen) -->
@@ -335,6 +468,12 @@
         </div>
     </section>
 
+    <!-- Serverstatus panel -->
+    <div class="server-status">
+        <p>Serverstatus: <span class="status">Online</span></p>
+        <p>Spillere: <span class="players">25/100</span></p>
+    </div>
+
     <!-- Content Sections -->
     <div class="section" id="om">
         <h2>Om os</h2>
@@ -342,7 +481,7 @@
         <img src="newgate-logo.png" alt="Newgate Logo" class="section-logo">
     </div>
 
-    <!-- Rules Section -->
+    <!-- Rules Section (stadig til stede som standard) -->
     <div class="section rules-section" id="regler">
         <h2>Regler</h2>
         <ul>
@@ -372,9 +511,30 @@
         <a href="https://discord.gg/4MaZTvKK4A" class="cta-button">Join Discord</a>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer med sociale medier -->
     <footer>
         <p>© 2025 Newgate. Alle rettigheder forbeholdes.</p>
+        <div class="social-links">
+            <a href="https://discord.gg/4MaZTvKK4A" target="_blank">🖧</a>
+            <a href="https://youtube.com" target="_blank">📺</a>
+            <a href="https://twitter.com" target="_blank">🐦</a>
+        </div>
     </footer>
+
+    <!-- Partikler og script -->
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.js"></script>
+    <script src="script.js"></script>
+    <!-- Lille script til sticky navigation -->
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>
